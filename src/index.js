@@ -10,14 +10,12 @@ import registerServiceWorker from './registerServiceWorker';
 import reducer from './reducers';
 import epics from './epics';
 
-const epicMiddleware = createEpicMiddleware(epics);
-
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   reducer,
-  composeEnhancers(applyMiddleware(epicMiddleware))
+  composeEnhancers(applyMiddleware(createEpicMiddleware(epics)))
 );
 
 ReactDOM.render(

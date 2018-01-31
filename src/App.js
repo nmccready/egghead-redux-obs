@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Stories from './components/Stories';
+import Users from './components/Users';
 
 const App = () => (
   <div className="App">
-    <Stories />
+    <Users />
   </div>
 );
 
