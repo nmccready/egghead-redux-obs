@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clear, loadStories } from '../actions';
+import { fetchStoriesAction } from '../actions';
 
 function Stories(props) {
+  if (props.loading) {
+    return <p>Please Wait...</p>;
+  }
   return (
     <div>
       <button type="button" onClick={props.loadStories}>
-        Load Top 3 Stories
-      </button>
-      <button type="button" onClick={props.clear}>
-        Clear
+        Load Top 5 Stories
       </button>
       <StoryList {...props} />
     </div>
@@ -17,13 +17,15 @@ function Stories(props) {
 }
 
 function StoryList(props) {
-  if (!props.items) return null;
-
-  return <div>{props.items.map(item => <Story {...item} key={item.id} />)}</div>;
-}
-
-function Story(props) {
-  return <p>{props.title}</p>;
+  return (
+    <ul>
+      {props.stories.map(story => (
+        <li key={story.id}>
+          <a href={story.url}>{story.title}</a>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 function mapState(state) {
@@ -32,8 +34,7 @@ function mapState(state) {
 
 function mapDispatch(dispatch) {
   return {
-    loadStories: () => dispatch(loadStories()),
-    clear: () => dispatch(clear())
+    loadStories: () => dispatch(fetchStoriesAction())
   };
 }
 

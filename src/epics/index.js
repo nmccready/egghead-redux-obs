@@ -1,14 +1,31 @@
 import { Observable } from 'rxjs';
 import { combineEpics } from 'redux-observable';
-import { LOAD_STORIES, clear } from '../actions';
+import { FETCH_STORIES, fetchStoriesFulfilledAction } from '../actions/index';
 
-function loadStoriesEpic(action$) {
-  return action$
-    .ofType(LOAD_STORIES)
-    .switchMap(() => Observable.of(clear()).delay(2000));
-  // .ofType(LOAD_STORIES)
-  // .do(a => console.log(a))
-  // .ignoreElements();
-}
+const topStories =
+  'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty';
 
-export default combineEpics(loadStoriesEpic);
+const url = id =>
+  `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`;
+
+const fetchStoriesEpic = action$ =>
+  action$.ofType(FETCH_STORIES).switchMap(() =>
+    Observable.ajax
+      .getJSON(topStories)
+      // .do(console.log)
+      // .ignoreElements())
+      // slice first 5 ids
+      .map(ids => ids.slice(0, 5))
+      // convert ids -> urls
+      .map(ids => ids.map(url))
+      // convert urls -> ajax
+      .map(urls => urls.map(_url => Observable.ajax.getJSON(_url)))
+      // .do(console.log)
+      // .ignoreElements())
+      // execute 5 ajax requests
+      .mergeMap(reqs => Observable.forkJoin(reqs))
+      // results -> store
+      .map(stories => fetchStoriesFulfilledAction(stories))
+  ); // eslint-disable-line
+
+export default combineEpics(fetchStoriesEpic);
