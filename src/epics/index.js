@@ -15,5 +15,5 @@ function searchBeersEpic(action$) {
     })
 }
 
-export const rootEpic = combineEpics(searchBeersEpic);
+export default combineEpics(searchBeersEpic);
 
