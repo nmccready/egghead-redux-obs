@@ -2,6 +2,8 @@ export const SEARCHED_BEERS = 'SEARCHED_BEERS';
 export const SEARCHED_BEERS_LOADING = 'SEARCHED_BEERS_LOADING';
 export const SEARCHED_BEERS_ERROR = 'SEARCHED_BEERS_ERROR';
 export const RECEIVED_BEERS = 'RECEIVED_BEERS';
+export const CANCEL_SEARCH = 'CANCEL_SEARCH';
+export const NAVIGATE = 'NAVIGATE';
 
 export function searchBeers(query) {
   return {
@@ -23,4 +25,12 @@ export function receiveBeers(beers) {
     type: RECEIVED_BEERS,
     payload: beers
   };
+}
+
+export function cancelSearch() {
+  return { type: CANCEL_SEARCH };
+}
+
+export function navigate(url) {
+  return { type: NAVIGATE, payload: url };
 }
