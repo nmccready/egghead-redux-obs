@@ -15,7 +15,7 @@ const search = (term) => `${beers}?beer_name=${encodeURIComponent(term)}`;
 const ajax = (term) =>
   term === 'skull'
     ? Observable.throw(new Error('Ajax failed'))
-    : Observable.ajax.getJSON(search(term)).delay(5000);
+    : Observable.ajax.getJSON(search(term)).delay(1000);
 
 function searchBeersEpic(action$) {
   return action$

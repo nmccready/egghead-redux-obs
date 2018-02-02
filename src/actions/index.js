@@ -13,11 +13,17 @@ export function searchBeers(query) {
 }
 
 export function searchBeersLoading(loading) {
-  return { type: SEARCHED_BEERS_LOADING, payload: loading };
+  return {
+    type: SEARCHED_BEERS_LOADING,
+    payload: loading
+  };
 }
 
 export function searchBeersError(err) {
-  return { type: SEARCHED_BEERS_ERROR, payload: err.message };
+  return {
+    type: SEARCHED_BEERS_ERROR,
+    payload: err.message
+  };
 }
 
 export function receiveBeers(beers) {

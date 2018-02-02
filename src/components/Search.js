@@ -1,6 +1,12 @@
 import React from 'react';
 
-export function Search({ defaultValue, onChange, messages, loading, cancel }) {
+export default function Search({
+  defaultValue,
+  onChange,
+  messages,
+  loading,
+  cancel
+}) {
   return (
     <div className="Search">
       <input

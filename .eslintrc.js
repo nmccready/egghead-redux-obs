@@ -21,7 +21,11 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': 0,
     'react/prop-types': 0,
-    'no-confusing-arrow': 0
+    'no-confusing-arrow': 0,
+    'object-curly-newline': 0,
+    'no-console':0,
+    'function-paren-newline': 0,
+    'no-use-before-define': 0
   },
   env: {
     browser: true,

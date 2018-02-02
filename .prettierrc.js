@@ -1,6 +1,6 @@
 module.exports = {
-  stylelintIntegration: true,
+  // stylelintIntegration: true,
   singleQuote: true,
-  printWidth: 50,
+  printWidth: 80,
   arrowParens: 'always'
 };
