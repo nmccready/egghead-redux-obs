@@ -21,12 +21,15 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': 0,
     'react/prop-types': 0,
-    "no-confusing-arrow": 0
+    'no-confusing-arrow': 0
   },
   env: {
-    browser: true
+    browser: true,
+    jest: true
   },
   globals: {
-    window: true
+    window: true,
+    // expect: true,
+    // it: true
   }
 };
