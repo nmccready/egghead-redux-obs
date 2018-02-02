@@ -12,15 +12,9 @@ import {
 const beers = 'https://api.punkapi.com/v2/beers';
 const search = (term) => `${beers}?beer_name=${encodeURIComponent(term)}`;
 
-const ajax = (term) =>
-  term === 'skull'
-    ? Observable.throw(new Error('Ajax failed'))
-    : Observable.ajax.getJSON(search(term)).delay(1000);
-
-function searchBeersEpic(action$) {
+function searchBeersEpic(action$, store, deps) {
   return action$
-    .ofType(SEARCHED_BEERS)
-    .debounceTime(500)
+    .ofType(SEARCHED_BEERS) // .debounceTime(500)
     .filter((action) => action.payload !== '')
     .switchMap(({ payload }) => {
       const loading = Observable.of(searchBeersLoading(true));
@@ -30,7 +24,8 @@ function searchBeersEpic(action$) {
         action$.ofType(NAVIGATE)
       );
 
-      const request = ajax(payload)
+      const request = deps.ajax
+        .getJSON(search(payload))
         // .takeUntil(action$.ofType(CANCEL_SEARCH)) // buggy?
         .takeUntil(blockers)
         .map(receiveBeers)
